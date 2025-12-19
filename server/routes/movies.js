@@ -126,6 +126,23 @@ router.post('/cancel', async (req, res) => {
   }
 });
 
+// ... (Your existing Caching code is above here) ...
+
+// GET SINGLE MOVIE BY ID (Add this part!)
+router.get('/:id', async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (!movie) {
+      return res.status(404).json({ message: 'Movie not found' });
+    }
+    res.json(movie);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+module.exports = router;
+
 // --- EXPORT MUST BE AT THE VERY END ---
 module.exports = router;
 
