@@ -32,6 +32,12 @@ app.get('/', (req, res) => {
 // --- CRITICAL PART: START THE SERVER ---
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// ONLY run server if not in production (Vercel handles it differently)
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+// Export the app for Vercel
+module.exports = app;
