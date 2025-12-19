@@ -2,6 +2,8 @@ const router = require('express').Router();
 const Movie = require('../models/Movie');
 const Show = require('../models/Show');
 const Booking = require('../models/Booking');
+const NodeCache = require('node-cache');
+const myCache = new NodeCache({ stdTTL: 300 }); // Cache for 5 minutes
 
 // 1. GET ALL MOVIES
 router.get('/', async (req, res) => {
@@ -12,11 +14,28 @@ router.get('/', async (req, res) => {
 });
 
 // 2. GET MOVIE DETAILS
-router.get('/:id', async (req, res) => {
+// GET ALL MOVIES (WITH CACHING)
+router.get('/', async (req, res) => {
   try {
-    const movie = await Movie.findById(req.params.id);
-    res.json(movie);
-  } catch (err) { res.status(500).json(err); }
+    // 1. Try to get data from cache
+    const cachedMovies = myCache.get("all-movies");
+    
+    if (cachedMovies) {
+      console.log("⚡ Serving from Cache");
+      return res.json(cachedMovies);
+    }
+
+    // 2. If not in cache, get from DB
+    console.log("🐢 Serving from DB");
+    const movies = await Movie.find();
+
+    // 3. Save to cache
+    myCache.set("all-movies", movies);
+    
+    res.json(movies);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
 
 // 3. GET SHOWS FOR A MOVIE
