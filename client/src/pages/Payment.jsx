@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
 const Payment = () => {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const { state } = useLocation();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -21,11 +22,11 @@ const Payment = () => {
     if (paymentMethod === 'upi' && !details.upi) return alert("Enter UPI ID");
 
     try {
-      await axios.post('http://localhost:5000/api/movies/book', {
-        showId: show._id, // Send SHOW ID, not movie ID
-        seatIds: selectedSeats,
-        userId: user._id
-      });
+      await axios.post(`${API_URL}/api/movies/book`, {
+      showId: show._id,
+      seatIds: selectedSeats,
+      userId: user._id
+    });
       alert(`Paid via ${paymentMethod.toUpperCase()}! Booking Confirmed.`);
       navigate('/my-bookings');
     } catch (err) {

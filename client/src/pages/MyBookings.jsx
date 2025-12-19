@@ -3,12 +3,13 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
 const MyBookings = () => {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const [bookings, setBookings] = useState([]);
   const { user } = useContext(AuthContext);
 
   const fetchBookings = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/movies/my-bookings/${user._id}`);
+      const res = await axios.get(`${API_URL}/api/movies/my-bookings/${user._id}`);
       setBookings(res.data);
     } catch (err) {
       console.error("Error fetching bookings:", err);
@@ -24,7 +25,7 @@ const MyBookings = () => {
     if (!window.confirm("Are you sure you want to cancel this ticket?")) return;
 
     try {
-      await axios.post('http://localhost:5000/api/movies/cancel', { bookingId });
+      await axios.post(`${API_URL}/api/movies/cancel`, { bookingId });
       alert("Ticket Cancelled!");
       fetchBookings(); // Refresh the list immediately
     } catch (err) {

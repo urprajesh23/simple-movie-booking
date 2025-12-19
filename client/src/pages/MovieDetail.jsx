@@ -5,6 +5,7 @@ import SeatSelection from '../components/SeatSelection';
 import { AuthContext } from '../context/AuthContext';
 
 const MovieDetail = () => {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [shows, setShows] = useState([]); 
@@ -18,8 +19,8 @@ const MovieDetail = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const movieRes = await axios.get(`http://localhost:5000/api/movies/${id}`);
-        const showRes = await axios.get(`http://localhost:5000/api/movies/${id}/shows`);
+        const movieRes = await axios.get(`${API_URL}/api/movies/${id}`);
+        const showRes = await axios.get(`${API_URL}/api/movies/${id}/shows`);
         setMovie(movieRes.data);
         setShows(showRes.data);
       } catch (err) { console.error(err); }

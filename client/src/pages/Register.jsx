@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { State, City } from 'country-state-city'; // Import State as well
 
 const Register = () => {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -50,7 +51,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', formData);
+      await axios.post(`${API_URL}/api/auth/register`, formData);
       alert('Registration Successful! Please Login.');
       navigate('/login');
     } catch (err) {

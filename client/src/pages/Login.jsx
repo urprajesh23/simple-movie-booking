@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const [email, setEmail] = useState('');
   const [pin, setPin] = useState('');
   const { dispatch } = useContext(AuthContext); // Access global state
@@ -14,7 +15,7 @@ const Login = () => {
     dispatch({ type: 'LOGIN_START' }); // Set loading state
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, pin });
+      const res = await axios.post(`${API_URL}/api/auth/login`, { email, pin });
       
       // If successful, update global context with user data
       dispatch({ type: 'LOGIN_SUCCESS', payload: res.data });

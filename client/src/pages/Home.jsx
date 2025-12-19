@@ -3,12 +3,13 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/movies');
+        const res = await axios.get(`${API_URL}/api/movies`);
         setMovies(res.data);
       } catch (err) {
         console.error("Error fetching movies:", err);
