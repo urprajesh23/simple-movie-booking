@@ -1,189 +1,195 @@
-:root {
-  --bg-color: #0f1014;       /* Deep Black/Blue */
-  --card-bg: #1b1c22;        /* Slightly lighter dark */
-  --primary: #e50914;        /* Cinema Red */
-  --text-main: #ffffff;
-  --text-secondary: #b3b3b3;
-  --glass: rgba(15, 16, 20, 0.85);
-}
-
+/* GLOBAL RESET */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
+  background-color: #f5f5fa;
+  color: #333;
+  padding-bottom: 50px;
 }
 
-/* --- 1. GLASS NAVBAR --- */
-.navbar {
+/* NAVBAR STYLES */
+nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 5%;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: var(--glass);
-  backdrop-filter: blur(12px); /* The Glass Effect */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 1rem 2rem;
+  background-color: #333545;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.logo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: 1px;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-}
-
-.nav-links a, .nav-links button {
-  color: var(--text-main);
+nav a {
   text-decoration: none;
+  color: white;
   font-weight: 500;
-  margin-left: 25px;
-  transition: all 0.3s;
-  background: none;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #2dc492;
+}
+
+nav button {
+  background-color: #ff4d4d;
+  color: white;
   border: none;
-  cursor: pointer;
-  font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
-}
-
-.nav-links a:hover {
-  color: var(--primary);
-}
-
-.logout-btn {
-  background-color: var(--primary) !important;
-  padding: 8px 24px;
+  padding: 8px 16px;
   border-radius: 4px;
-  color: white !important;
-}
-
-.logout-btn:hover {
-  background-color: #ff0f1f !important;
-  transform: translateY(-2px);
-}
-
-/* --- 2. HERO SECTION --- */
-.hero {
-  text-align: center;
-  padding: 100px 20px;
-  background: radial-gradient(circle at center, #2a2d3e 0%, #0f1014 70%);
-  margin-bottom: 20px;
-}
-
-.hero h1 {
-  font-size: 3.5rem;
-  margin-bottom: 15px;
-  font-weight: 700;
-}
-
-.hero p {
-  color: var(--text-secondary);
-  font-size: 1.2rem;
-}
-
-/* --- 3. MOVIE GRID --- */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px 60px 20px;
-}
-
-.movie-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 30px;
-}
-
-/* --- 4. MOVIE CARD --- */
-.movie-card {
-  background: var(--card-bg);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  position: relative;
-  height: 100%;
-  border: 1px solid transparent;
+  font-weight: bold;
+}
+
+/* AUTH PAGES (Login & Register) */
+.login-container, .register-container {
+  max-width: 400px;
+  margin: 60px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.login-container input, .register-container input, .register-container select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.login-container button, .register-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2dc492; /* BookMyShow Green */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* HOME PAGE MOVIE GRID */
+.movie-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px;
+}
+
+.movie-card {
+  width: 240px;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+  cursor: pointer;
 }
 
 .movie-card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
 }
 
 .movie-card img {
   width: 100%;
-  height: 300px;
+  height: 360px;
   object-fit: cover;
 }
 
-.movie-info {
+.movie-card h3 {
   padding: 15px;
-}
-
-.movie-info h3 {
-  font-size: 1rem;
-  margin-bottom: 8px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #fff;
-}
-
-.movie-info p {
-  color: var(--text-secondary);
-  font-size: 0.85rem;
-}
-
-/* --- 5. BOOKING FORM (Centered) --- */
-.form-container {
-  max-width: 400px;
-  margin: 80px auto;
-  padding: 40px;
-  background: var(--card-bg);
-  border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  font-size: 1.1rem;
   text-align: center;
+  color: #333;
 }
 
-.form-container h2 {
+/* MOVIE DETAIL PAGE */
+.detail-container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.movie-header {
+  display: flex;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .movie-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* SEAT SELECTION GRID */
+.cinema-container {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.screen-display {
+  background-color: #dfe3e7;
+  width: 300px;
+  height: 25px;
   margin-bottom: 30px;
-  color: var(--primary);
+  text-align: center;
+  font-size: 0.8rem;
+  color: #666;
+  transform: perspective(300px) rotateX(-5deg);
+  box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2);
 }
 
-.form-container input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  background: #2a2d3e;
-  border: 1px solid #333;
-  color: white;
-  border-radius: 6px;
-  outline: none;
+.seats-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 12px;
 }
 
-.form-container button {
-  width: 100%;
-  padding: 12px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
+.seat-box {
+  width: 32px;
+  height: 32px;
+  border: 1px solid #2dc492;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
   cursor: pointer;
+  color: #2dc492;
+  transition: 0.2s;
+}
+
+.seat-box:hover {
+  background-color: #2dc492;
+  color: white;
+}
+
+.seat-box.selected {
+  background-color: #2dc492;
+  color: white;
+  box-shadow: 0 0 5px #2dc492;
+}
+
+.seat-box.booked {
+  background-color: #e0e0e0;
+  border-color: #ccc;
+  color: #aaa;
+  cursor: not-allowed;
+  pointer-events: none;
 }
